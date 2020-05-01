@@ -173,18 +173,24 @@ instance.prototype.actions = function(system) {
 					label:    'Type',
 					id:       'type',
 					choices:  [
-						{ id: '/ch/',      label: 'Channel 1-32' },
 						{ id: '/auxin/',   label: 'Aux In 1-8' },
 						{ id: '/fxrtn/',   label: 'FX Return 1-8' },
 						{ id: '/bus/',     label: 'Bus 1-16'  },
 						{ id: '/mtx/',     label: 'Matrix 1-6' },
 						{ id: '/dca/',     label: 'Dca 1-8' }
 					],
-					default:  '/ch/'
+					default:  '/bus/'
 				},
 				{
 					type:     'textinput',
 					label:    'Ch, AuxIn, FXrtn, Bus, Mtx or Dca Number',
+					id:       'num',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'textinput',
+					label:    'Channel',
 					id:       'num',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
