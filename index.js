@@ -131,6 +131,74 @@ instance.prototype.actions = function(system) {
 	var self = this;
 	self.system.emit('instance_actions', self.id, {
 
+		'mute':     {
+			label:      'Set mute',
+			options: [
+				{
+					type:     'dropdown',
+					label:    'Type',
+					id:       'type',
+					choices:  [
+						{ id: '/ch/',      label: 'Channel 1-32' },
+						{ id: '/auxin/',   label: 'Aux In 1-8' },
+						{ id: '/fxrtn/',   label: 'FX Return 1-8' },
+						{ id: '/bus/',     label: 'Bus 1-16'  },
+						{ id: '/mtx/',     label: 'Matrix 1-6' },
+						{ id: '/dca/',     label: 'Dca 1-8' }
+					],
+					default:  '/ch/'
+				},
+				{
+					type:     'textinput',
+					label:    'Ch, AuxIn, FXrtn, Bus, Mtx or Dca Number',
+					id:       'num',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'dropdown',
+					label:    'Mute / Unmute',
+					id:       'mute',
+					default:  '0',
+					choices:  [ { id: '0', label: 'Mute' }, { id: '1', label: 'Unmute' } ]
+				},
+			]
+		},
+		
+		'Indmute':     {
+			label:      'Set Individual mute',
+			options: [
+				{
+					type:     'dropdown',
+					label:    'Type',
+					id:       'type',
+					choices:  [
+						{ id: '/ch/',      label: 'Channel 1-32' },
+						{ id: '/auxin/',   label: 'Aux In 1-8' },
+						{ id: '/fxrtn/',   label: 'FX Return 1-8' },
+						{ id: '/bus/',     label: 'Bus 1-16'  },
+						{ id: '/mtx/',     label: 'Matrix 1-6' },
+						{ id: '/dca/',     label: 'Dca 1-8' }
+					],
+					default:  '/ch/'
+				},
+				{
+					type:     'textinput',
+					label:    'Ch, AuxIn, FXrtn, Bus, Mtx or Dca Number',
+					id:       'num',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'dropdown',
+					label:    'Mute / Unmute',
+					id:       'mute',
+					default:  '0',
+					choices:  [ { id: '0', label: 'Mute' }, { id: '1', label: 'Unmute' } ]
+				},
+			]
+		},
+
 		'mMute':     {
 			label:      'Set Main mute',
 			options: [
@@ -419,6 +487,27 @@ instance.prototype.action = function(action) {
 
 	switch (action.action){
 		case 'mute':
+			var arg = {
+				type: "i",
+				value: parseInt(opt.mute)
+			};
+			if (opt.type != '/dca/') {
+				if (opt.num <= 9){
+					nVal = ('0' + parseInt(opt.num)).substr(-2)
+				}
+				if (opt.num >= 10) {
+					nVal = parseInt(opt.num)
+				}
+				cmd = opt.type + nVal + '/mix/on';
+			}
+			if (opt.type == '/dca/') {
+				nVal = parseInt(opt.num)
+				cmd = opt.type + nVal + '/on';
+			}
+
+		break;
+			
+		case 'Indmute':
 			var arg = {
 				type: "i",
 				value: parseInt(opt.mute)
