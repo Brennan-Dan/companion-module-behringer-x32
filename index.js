@@ -169,21 +169,14 @@ instance.prototype.actions = function(system) {
 			label:      'Set Individual mute',
 			options: [
 				{
-					type:     'dropdown',
-					label:    'Type',
-					id:       'type',
-					choices:  [
-						{ id: '/auxin/',   label: 'Aux In 1-8' },
-						{ id: '/fxrtn/',   label: 'FX Return 1-8' },
-						{ id: '/bus/',     label: 'Bus 1-16'  },
-						{ id: '/mtx/',     label: 'Matrix 1-6' },
-						{ id: '/dca/',     label: 'Dca 1-8' }
-					],
-					default:  '/bus/'
+					type:     'textinput',
+					label:    'Bus Number 1-16',
+					id:       'num',
+					default:  '1'
 				},
 				{
 					type:     'textinput',
-					label:    'Ch, AuxIn, FXrtn, Bus, Mtx or Dca Number',
+					label:    'Channel 1-32',
 					id:       'num',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
@@ -194,6 +187,12 @@ instance.prototype.actions = function(system) {
 					id:       'num',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'dropdown',
+					label:    'Fader Level',
+					id:       'fad',
+					choices:  self.fader_val
 				},
 				{
 					type:     'dropdown',
