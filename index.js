@@ -169,19 +169,32 @@ instance.prototype.actions = function(system) {
 			label:      'Set Individual mute',
 			options: [
 				{
-					type:     'textinput',
-					label:    'Bus Number 1-16',
-					id:       'busnum',
-					default:  '1'
+					type:     'dropdown',
+					label:    'Type',
+					id:       'type',
+					choices:  [
+						{ id: '/ch/',      label: 'Channel 1-32' },
+						{ id: '/auxin/',   label: 'Aux In 1-8' },
+						{ id: '/fxrtn/',   label: 'FX Return 1-8' },
+						{ id: '/bus/',     label: 'Bus 1-16'  },
+						{ id: '/mtx/',     label: 'Matrix 1-6' },
+						{ id: '/dca/',     label: 'Dca 1-8' }
+					],
+					default:  '/ch/'
 				},
 				{
 					type:     'textinput',
-					label:    'Channel 1-32',
-					id:       'chnum',
+					label:    'Ch, AuxIn, FXrtn, Bus, Mtx or Dca Number',
+					id:       'num',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
 				},
-				
+				{
+					type:     'textinput',
+					label:    'Channel Number',
+					id:       'Chnum',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
 				},
 				{
 					type:     'dropdown',
@@ -506,7 +519,18 @@ instance.prototype.action = function(action) {
 				type: "i",
 				value: parseInt(opt.mute)
 			};
-				cmd = '/busnum/' + '/chnum/' + opt.type + '/on';
+			if (opt.type != '/dca/') {
+				if (opt.num <= 9){
+					nVal = ('0' + parseInt(opt.num)).substr(-2)
+				}
+				if (opt.num >= 10) {
+					nVal = parseInt(opt.num)
+				}
+				cmd = opt.type + nVal + 'Chnum' + '/mix/on';
+			}
+			if (opt.type == '/dca/') {
+				nVal = parseInt(opt.num)
+				cmd = opt.type + nVal + 'Chnum' + '/on';
 			}
 
 		break;
