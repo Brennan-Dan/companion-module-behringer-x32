@@ -182,13 +182,6 @@ instance.prototype.actions = function(system) {
 					regex:    self.REGEX_NUMBER
 				},
 				{
-					type:     'textinput',
-					label:    'Channel',
-					id:       'num',
-					default:  '1',
-					regex:    self.REGEX_NUMBER
-				},
-				{
 					type:     'dropdown',
 					label:    'Fader Level',
 					id:       'fad',
