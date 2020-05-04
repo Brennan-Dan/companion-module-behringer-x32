@@ -171,21 +171,17 @@ instance.prototype.actions = function(system) {
 				{
 					type:     'textinput',
 					label:    'Bus Number 1-16',
-					id:       'num',
+					id:       'busnum',
 					default:  '1'
 				},
 				{
 					type:     'textinput',
 					label:    'Channel 1-32',
-					id:       'num',
+					id:       'chnum',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
 				},
-				{
-					type:     'dropdown',
-					label:    'Fader Level',
-					id:       'fad',
-					choices:  self.fader_val
+				
 				},
 				{
 					type:     'dropdown',
@@ -510,18 +506,7 @@ instance.prototype.action = function(action) {
 				type: "i",
 				value: parseInt(opt.mute)
 			};
-			if (opt.type != '/dca/') {
-				if (opt.num <= 9){
-					nVal = ('0' + parseInt(opt.num)).substr(-2)
-				}
-				if (opt.num >= 10) {
-					nVal = parseInt(opt.num)
-				}
-				cmd = opt.type + nVal + '/mix/on';
-			}
-			if (opt.type == '/dca/') {
-				nVal = parseInt(opt.num)
-				cmd = opt.type + nVal + '/on';
+				cmd = '/busnum/' + '/chnum/' + opt.type + '/on';
 			}
 
 		break;
