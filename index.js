@@ -98,6 +98,30 @@ instance.prototype.fader_val = [
 		{ label: '+10 dB',     id: '1.0' }
 ];
 
+instance.prototype.busfader_val = [
+		{ label: '- ∞',        id: '-90' },
+		{ label: '-50 dB: ',   id: '-85.238' },
+		{ label: '-30 dB',     id: '0.251' },
+		{ label: '-20 dB',     id: '0.375' },
+		{ label: '-18 dB',     id: '0.4' },
+		{ label: '-15 dB',     id: '0.437' },
+		{ label: '-12 dB',     id: '0.475' },
+		{ label: '-9 dB',      id: '0.525' },
+		{ label: '-6 dB',      id: '0.6' },
+		{ label: '-3 dB',      id: '0.675' },
+		{ label: '-2 dB',      id: '0.7' },
+		{ label: '-1 dB',      id: '0.725' },
+		{ label: '0 dB',       id: '0.75' },
+		{ label: '+1 dB',      id: '0.775' },
+		{ label: '+2 dB',      id: '0.8' },
+		{ label: '+3 dB',      id: '0.825' },
+		{ label: '+4 dB',      id: '0.85' },
+		{ label: '+5 dB',      id: '0.875' },
+		{ label: '+6 dB',      id: '0.9' },
+		{ label: '+9 dB',      id: '0.975' },
+		{ label: '+10 dB',     id: '1.0' }
+];
+
 instance.prototype.color_val = [
 		{ label: 'Off',              id: '0' },
 		{ label: 'Red: ',            id: '1' },
@@ -192,6 +216,31 @@ instance.prototype.actions = function(system) {
 			]
 		},
 
+		'busfad':     {
+			label:      'Set Bus Fader Level',
+			options: [
+				{
+					type:     'textinput',
+					label:    'Bus',
+					id:       'num2',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'textinput',
+					label:    'Ch',
+					id:       'num',
+					default:  '1',
+					regex:    self.REGEX_NUMBER
+				},
+				{
+					type:     'dropdown',
+					label:    'Fader Level',
+					id:       'fad',
+					choices:  self.busfader_val
+				},
+			]
+		},
 		'mMute':     {
 			label:      'Set Main mute',
 			options: [
@@ -516,7 +565,27 @@ instance.prototype.action = function(action) {
 				if (opt.num2 >= 10) {
 					nVal2 = parseInt(opt.num2)
 				}
-			cmd = '/ch/' + nVal + '/mix/' + nVal2 + '/on'
+			cmd = '/ch/' + nVal + '/mix/' + nVal2 + '/on';
+		break;
+			
+		case 'busfad':
+			var arg = {
+				type: "f",
+				value: parseFloat(opt.fad)
+			};
+				if (opt.num <= 9){
+					nVal = ('0' + parseInt(opt.num)).substr(-2)
+				}
+				if (opt.num >= 10) {
+					nVal = parseInt(opt.num)
+				}
+				if (opt.num2 <= 9){
+					nVal2 = ('0' + parseInt(opt.num2)).substr(-2)
+				}
+				if (opt.num2 >= 10) {
+					nVal2 = parseInt(opt.num2)
+				}
+				cmd = '/ch/' + nVal + '/mix/' + nVal2 + '/level';
 		break;
 
 		case 'mMute':
