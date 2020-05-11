@@ -505,7 +505,7 @@ instance.prototype.action = function(action) {
 				type: "i",
 				value: parseInt(opt.mute)
 			};
-			cmd = opt.num + '/mix/' + opt.num2 + ‘/ on’
+			cmd = opt.num + '/mix/' + opt.num2 + '/on'
 		break;
 
 		case 'mMute':
