@@ -181,7 +181,7 @@ instance.prototype.actions = function(system) {
 					id:       'num',
 					default:  '1',
 					regex:    self.REGEX_NUMBER
-				}
+				},
 				{
 					type:     'dropdown',
 					label:    'Mute / Unmute',
