@@ -497,7 +497,6 @@ instance.prototype.action = function(action) {
 				nVal = parseInt(opt.num)
 				cmd = opt.type + nVal + '/on';
 			}
-
 		break;
 			
 		case 'buschmute':
@@ -505,7 +504,19 @@ instance.prototype.action = function(action) {
 				type: "i",
 				value: parseInt(opt.mute)
 			};
-			cmd = opt.num + '/mix/' + opt.num2 + '/on'
+				if (opt.num <= 9){
+					nVal = ('0' + parseInt(opt.num)).substr(-2)
+				}
+				if (opt.num >= 10) {
+					nVal = parseInt(opt.num)
+				}
+				if (opt.num2 <= 9){
+					nVal2 = ('0' + parseInt(opt.num2)).substr(-2)
+				}
+				if (opt.num2 >= 10) {
+					nVal2 = parseInt(opt.num2)
+				}
+			cmd = '/ch/' + nVal + '/mix/' + nVal2 + '/on'
 		break;
 
 		case 'mMute':
