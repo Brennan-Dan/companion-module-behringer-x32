@@ -99,8 +99,8 @@ instance.prototype.fader_val = [
 ];
 
 instance.prototype.busfader_val = [
-		{ label: '- ∞',        id: '-90' },
-		{ label: '-50 dB: ',   id: '-85.238' },
+		{ label: '- ∞',        id: '0.0' },
+		{ label: '-50 dB: ',   id: '0.1251' },
 		{ label: '-30 dB',     id: '0.251' },
 		{ label: '-20 dB',     id: '0.375' },
 		{ label: '-18 dB',     id: '0.4' },
